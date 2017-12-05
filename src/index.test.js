@@ -2,7 +2,6 @@ import { createElement } from 'react';
 import { connect } from 'react-redux';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import PropTypes from 'prop-types';
 
 import Peregrine from './index.js';
 
