@@ -1,23 +1,11 @@
 {
-    "env": {
-        "test": {
-            "presets": [
-                "env"
-            ],
-            "plugins": [
-                "transform-react-jsx"
-            ]
-        }
-    },
-    "presets": [
-        [
-            "env",
-            {
-                "modules": false
-            }
-        ]
-    ],
-    "plugins": [
-        "syntax-jsx"
-    ]
+  "env": {
+    "test": {
+      "plugins": [
+        "syntax-jsx",
+        "transform-es2015-modules-commonjs",
+        ["transform-react-jsx", { "pragma": "createElement" }]
+      ]
+    }
+  }
 }
