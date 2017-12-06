@@ -30,7 +30,6 @@
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-plugin-object-rest-spread": "0.0.0",
-    "babel-plugin-syntax-jsx": "^6.18.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "enzyme": "^3.2.0",

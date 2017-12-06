@@ -2,7 +2,6 @@
   "env": {
     "test": {
       "plugins": [
-        "syntax-jsx",
         "transform-es2015-modules-commonjs",
         ["transform-react-jsx", { "pragma": "createElement" }]
       ]
