@@ -1,10 +1,8 @@
-import { Component, createElement } from 'react';
+import { Component, Fragment, createElement } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { render } from 'react-dom';
 import createStore from './store';
-
-const Shadow = ({ children }) => children;
 
 class Peregrine extends Component {
     constructor(props) {
@@ -23,7 +21,7 @@ class Peregrine extends Component {
         return (
             <Provider store={store}>
                 <BrowserRouter>
-                    <Shadow>{props.children}</Shadow>
+                    <Fragment>{props.children}</Fragment>
                 </BrowserRouter>
             </Provider>
         );

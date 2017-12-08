@@ -20,9 +20,10 @@
     "test": "jest --no-cache",
     "test:ci": "run-p test prettier:check lint"
   },
+  "dependencies": {},
   "peerDependencies": {
-    "react": "^16.1.1",
-    "react-dom": "^16.1.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2"
@@ -42,9 +43,11 @@
     "prettier": "^1.8.2",
     "prettier-check": "^2.0.0",
     "prop-types": "^15.6.0",
-    "rimraf": "^2.6.2",
-    "rollup": "^0.52.0",
-    "rollup-plugin-commonjs": "^8.2.6",
-    "rollup-plugin-node-resolve": "^3.0.0"
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
+    "rimraf": "^2.6.2"
   }
 }
