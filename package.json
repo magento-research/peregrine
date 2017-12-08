@@ -5,14 +5,14 @@
   "description": "The core runtime of Magento PWA",
   "license": "(OSL-3.0 OR AFL-3.0)",
   "author": "Magento Commerce",
-  "main": "dist/peregrine.js",
-  "module": "dist/peregrine.esm.js",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/magento-research/peregrine"
   },
   "scripts": {
-    "build": "rollup -c",
+    "build": "babel src -d dist --ignore test.js",
     "clean": "rimraf dist",
     "lint": "eslint 'src/**/*.js'",
     "prettier": "prettier --write '{src/**/,scripts/**/,}*.js'",
@@ -20,7 +20,7 @@
     "test": "jest --no-cache",
     "test:ci": "run-p test prettier:check lint"
   },
-  "dependencies": {
+  "peerDependencies": {
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-redux": "^5.0.6",
@@ -28,9 +28,10 @@
     "redux": "^3.7.2"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
-    "babel-plugin-object-rest-spread": "0.0.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.0",

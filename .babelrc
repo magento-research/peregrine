@@ -1,5 +1,11 @@
 {
   "env": {
+    "development": {
+      "plugins": [
+        "transform-object-rest-spread",
+        ["transform-react-jsx", { "pragma": "createElement" }]
+      ]
+    },
     "test": {
       "plugins": [
         "transform-es2015-modules-commonjs",

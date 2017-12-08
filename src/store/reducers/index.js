@@ -8,7 +8,7 @@ const initialState = {
 // define the single root reducer
 const rootReducer = (state = initialState, action = {}) => {
     const { payload, type } = action;
-    const nextReducers = Object.assign({}, state[__reducers]);
+    const nextReducers = { ...state[__reducers] };
 
     if (type === 'ADD_REDUCER') {
         const { key, reducer } = payload || {};
@@ -24,15 +24,19 @@ const rootReducer = (state = initialState, action = {}) => {
         );
     }
 
+    // apply state and action to each slice reducer
     const slices = Object.entries(nextReducers).reduce(
         (memo, [key, reducer]) =>
             Object.assign(memo, { [key]: reducer(state[key], action) }),
         {}
     );
 
-    return Object.assign({}, state, slices, {
+    // compose next state from slices
+    return {
+        ...state,
+        ...slices,
         [__reducers]: nextReducers
-    });
+    };
 };
 
 export default rootReducer;

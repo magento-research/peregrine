@@ -19,10 +19,14 @@ class Peregrine extends Component {
 
     render() {
         const { props, store } = this;
-        const child = createElement(Shadow, null, props.children);
-        const router = createElement(BrowserRouter, null, child);
 
-        return createElement(Provider, { store }, router);
+        return (
+            <Provider store={store}>
+                <BrowserRouter>
+                    <Shadow>{props.children}</Shadow>
+                </BrowserRouter>
+            </Provider>
+        );
     }
 }
 
