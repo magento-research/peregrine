@@ -1,27 +1,38 @@
+// store reducers as a pseudo-private slice of state
 const __reducers = Symbol('reducers');
 
 const initialState = {
-    [__reducers]: new Map()
+    [__reducers]: {}
 };
 
+// define the single root reducer
 const rootReducer = (state = initialState, action = {}) => {
-    const reducers = state[__reducers];
     const { payload, type } = action;
-    const nextState = Object.assign({}, state);
+    const nextReducers = Object.assign({}, state[__reducers]);
 
     if (type === 'ADD_REDUCER') {
-        reducers.set(payload.key, payload.reducer);
+        const { key, reducer } = payload || {};
+
+        Object.assign(nextReducers, { [key]: reducer });
     }
 
     if (type === 'ADD_REDUCERS') {
-        payload.forEach(({ key, reducer }) => reducers.set(key, reducer));
+        payload.forEach(({ key, reducer }) =>
+            Object.assign(nextReducers, {
+                [key]: reducer
+            })
+        );
     }
 
-    for (const [key, reducer] of reducers) {
-        nextState[key] = reducer(state[key], action);
-    }
+    const slices = Object.entries(nextReducers).reduce(
+        (memo, [key, reducer]) =>
+            Object.assign(memo, { [key]: reducer(state[key], action) }),
+        {}
+    );
 
-    return nextState;
+    return Object.assign({}, state, slices, {
+        [__reducers]: nextReducers
+    });
 };
 
 export default rootReducer;
