@@ -33,13 +33,8 @@ class Peregrine {
         await renderAsync(this.element, container);
     }
 
-    async addReducer(key, _reducer) {
-        const reducer = await _reducer;
-
-        this.store.dispatch({
-            type: 'ADD_REDUCER',
-            payload: { key, reducer }
-        });
+    async addReducer(key, reducer) {
+        this.store.addReducer(key, await reducer);
     }
 }
 
