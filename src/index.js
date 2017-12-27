@@ -7,7 +7,7 @@ import createStore from './store';
 /**
  * Mount a React tree.
  * A render callback fulfills the returned promise.
- * 
+ *
  * @async
  * @param {ReactElement} element The React component instance.
  * @param {Element} container The target DOM element.
@@ -38,7 +38,6 @@ class Peregrine {
      * Create an instance of the root component, wrapped with store and routing
      * components.
      *
-     * @async
      * @returns {Promise<ReactElement>}
      */
     async render() {
@@ -57,7 +56,6 @@ class Peregrine {
     /**
      * Render and mount the React tree into a DOM element.
      *
-     * @async
      * @param {Element} container The target DOM element.
      * @returns {Promise<void>}
      */
@@ -65,15 +63,14 @@ class Peregrine {
         this.container = container;
         this.element = await this.render();
 
-        await renderAsync(this.element, container);
+        return renderAsync(this.element, container);
     }
 
     /**
      * Add a reducer (slice) to the store (root).
      * The store replaces the root reducer with one containing the new slice.
      *
-     * @async
-     * @param {string} key The name of the slice.
+     * @param {String} key The name of the slice.
      * @param {Promise<function>} reducer The reducing function.
      * @returns {Promise<void>}
      */
@@ -83,3 +80,5 @@ class Peregrine {
 }
 
 export default Peregrine;
+
+export { default as Router } from './Router';
