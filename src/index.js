@@ -5,20 +5,8 @@ import { render } from 'react-dom';
 import createStore from './store';
 
 /**
- * Mount a React tree.
- * A render callback fulfills the returned promise.
- *
- * @async
- * @param {ReactElement} element The React component instance.
- * @param {Element} container The target DOM element.
- * @returns {Promise<void>}
- */
-const renderAsync = (element, container) =>
-    new Promise(resolve => render(element, container, resolve));
-
-/**
  * @class
- * @prop {Promise<Component>} component
+ * @prop {Component} component
  * @prop {Element} container
  * @prop {ReactElement} element
  * @prop {Store} store
@@ -38,11 +26,10 @@ class Peregrine {
      * Create an instance of the root component, wrapped with store and routing
      * components.
      *
-     * @returns {Promise<ReactElement>}
+     * @returns {ReactElement}
      */
-    async render() {
-        const { component, store } = this;
-        const Component = await component;
+    render() {
+        const { component: Component, store } = this;
 
         return (
             <Provider store={store}>
@@ -57,13 +44,14 @@ class Peregrine {
      * Render and mount the React tree into a DOM element.
      *
      * @param {Element} container The target DOM element.
-     * @returns {Promise<void>}
+     * @param {Function} callback A function called after mounting.
+     * @returns {void}
      */
-    async mount(container) {
+    mount(container) {
         this.container = container;
-        this.element = await this.render();
+        this.element = this.render();
 
-        return renderAsync(this.element, container);
+        return render(this.element, ...arguments);
     }
 
     /**
@@ -71,14 +59,12 @@ class Peregrine {
      * The store replaces the root reducer with one containing the new slice.
      *
      * @param {String} key The name of the slice.
-     * @param {Promise<function>} reducer The reducing function.
-     * @returns {Promise<void>}
+     * @param {Function} reducer The reducing function.
+     * @returns {void}
      */
-    async addReducer(key, reducer) {
-        this.store.addReducer(key, await reducer);
+    addReducer(key, reducer) {
+        this.store.addReducer(key, reducer);
     }
 }
 
 export default Peregrine;
-
-export { default as Router } from './Router';
