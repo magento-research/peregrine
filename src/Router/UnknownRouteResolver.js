@@ -25,7 +25,7 @@ export default class UnknownRouteResolver extends Component {
         this.handleRoute(this.props.pathname);
     }
 
-    handleRoute(url) {
+    async handleRoute(url) {
         const {
             resolveUnknownRoute,
             renderRouteError,
@@ -33,29 +33,29 @@ export default class UnknownRouteResolver extends Component {
             registerRoute,
             render404
         } = this.props;
-        resolveUnknownRoute(url)
-            .then(stdRoute => {
-                // Find route definition matching the standard route,
-                // so we can determine what root component to render
-                const route = routes.find(route => {
-                    return matchPath(stdRoute, {
-                        path: route.urlPattern,
-                        strict: true,
-                        exact: true
-                    });
-                });
 
-                registerRoute({
-                    getComponent: route ? route.getComponent : () => render404,
-                    urlPattern: url
-                });
-            })
-            .catch(err => {
-                registerRoute({
-                    getComponent: () => () => renderRouteError(err),
-                    urlPattern: url
+        try {
+            const stdRoute = await resolveUnknownRoute(url);
+            // Find route definition matching the standard route,
+            // so we can determine what root component to render
+            const route = routes.find(route => {
+                return matchPath(stdRoute, {
+                    path: route.urlPattern,
+                    strict: true,
+                    exact: true
                 });
             });
+
+            registerRoute({
+                getComponent: route ? route.getComponent : () => render404,
+                urlPattern: url
+            });
+        } catch (err) {
+            registerRoute({
+                getComponent: () => () => renderRouteError(err),
+                urlPattern: url
+            });
+        }
     }
 
     render() {
