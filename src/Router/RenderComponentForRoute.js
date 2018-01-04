@@ -23,17 +23,14 @@ export default class RenderComponentForRoute extends Component {
         routingError: null
     };
 
-    unwrapAndCacheRouteComponent() {
+    async unwrapAndCacheRouteComponent() {
         const { route } = this.props;
-        // `getComponent` can synchronously return a component, or a promise
-        // that will resolve to a component.
-        Promise.resolve(route.getComponent())
-            .then(RouteComponent => {
-                this.setState({ RouteComponent });
-            })
-            .catch(err => {
-                this.setState({ routingError: err });
-            });
+        try {
+            const RouteComponent = await route.getComponent();
+            this.setState({ RouteComponent });
+        } catch (err) {
+            this.setState({ routingError: err });
+        }
     }
 
     componentDidMount() {
