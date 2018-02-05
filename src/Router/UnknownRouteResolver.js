@@ -1,6 +1,7 @@
 import { createElement, Component } from 'react';
 import { func, arrayOf, shape, string } from 'prop-types';
-import { matchPath } from 'react-router';
+import resolveUnknownRoute from './resolveUnknownRoute';
+import fetchRootComponent from './fetchRootComponent';
 
 export default class UnknownRouteResolver extends Component {
     static propTypes = {
@@ -11,14 +12,14 @@ export default class UnknownRouteResolver extends Component {
             })
         ).isRequired,
         pathname: string.isRequired,
-        /* (route: string) => string */
-        resolveUnknownRoute: func.isRequired,
         /* (route: object) => void */
         registerRoute: func.isRequired,
         /* () => React.Element<any> */
         render404: func.isRequired,
         /* (err: Error) => React.Element<any> */
-        renderRouteError: func.isRequired
+        renderRouteError: func.isRequired,
+        apiBase: string.isRequired,
+        __tmp_webpack_public_path__: string.isRequired
     };
 
     componentDidMount() {
@@ -27,26 +28,23 @@ export default class UnknownRouteResolver extends Component {
 
     handleRoute(url) {
         const {
-            resolveUnknownRoute,
             renderRouteError,
-            routes,
             registerRoute,
-            render404
+            apiBase,
+            __tmp_webpack_public_path__
         } = this.props;
-        resolveUnknownRoute(url)
-            .then(stdRoute => {
-                // Find route definition matching the standard route,
-                // so we can determine what root component to render
-                const route = routes.find(route => {
-                    return matchPath(stdRoute, {
-                        path: route.urlPattern,
-                        strict: true,
-                        exact: true
-                    });
-                });
-
+        resolveUnknownRoute({
+            route: url,
+            apiBase,
+            __tmp_webpack_public_path__
+        })
+            .then(({ rootChunkID, rootModuleID }) => {
                 registerRoute({
-                    getComponent: route ? route.getComponent : () => render404,
+                    getComponent: fetchRootComponent.bind(
+                        null,
+                        rootChunkID,
+                        rootModuleID
+                    ),
                     urlPattern: url
                 });
             })

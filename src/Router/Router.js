@@ -6,8 +6,6 @@ import RenderComponentForRoute from './RenderComponentForRoute';
 
 export default class MagentoRouter extends Component {
     static propTypes = {
-        // Note: Initial list of standard routes will likely be
-        // hardcoded into this lib. Just accepting a prop for now
         routes: arrayOf(
             shape({
                 urlPattern: string.isRequired,
@@ -18,13 +16,13 @@ export default class MagentoRouter extends Component {
         render404: func.isRequired,
         /* (err: Error) => React.Element<any> */
         renderRouteError: func.isRequired,
-        /* (route: string) => Promise<string> */
-        resolveUnknownRoute: func.isRequired,
         /* () => React.Element<any> */
         renderLoading: func,
         /* Can be BrowserRouter, MemoryRouter, HashRouter, etc */
         Router: func,
-        routerProps: object
+        routerProps: object,
+        apiBase: string.isRequired,
+        __tmp_webpack_public_path__: string.isRequired
     };
 
     static defaultProps = {
@@ -47,10 +45,11 @@ export default class MagentoRouter extends Component {
             routes,
             render404,
             renderRouteError,
-            resolveUnknownRoute,
             renderLoading,
             Router,
-            routerProps
+            routerProps,
+            apiBase,
+            __tmp_webpack_public_path__
         } = this.props;
         const { lazyRoutes } = this.state;
 
@@ -61,6 +60,7 @@ export default class MagentoRouter extends Component {
                         .concat(lazyRoutes)
                         .map(route => (
                             <Route
+                                exact={true}
                                 key={route.urlPattern}
                                 path={route.urlPattern}
                                 render={routeProps => (
@@ -78,10 +78,13 @@ export default class MagentoRouter extends Component {
                             <UnknownRouteResolver
                                 routes={routes}
                                 pathname={location.pathname || ''}
-                                resolveUnknownRoute={resolveUnknownRoute}
                                 registerRoute={this.registerRoute}
                                 render404={render404}
                                 renderRouteError={renderRouteError}
+                                apiBase={apiBase}
+                                __tmp_webpack_public_path__={
+                                    __tmp_webpack_public_path__
+                                }
                             />
                         )}
                     />
