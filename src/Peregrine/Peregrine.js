@@ -23,6 +23,12 @@ class Peregrine {
         const { apiBase = location.origin, __tmp_webpack_public_path__ } = opts;
         this.apiBase = apiBase;
         this.__tmp_webpack_public_path__ = __tmp_webpack_public_path__;
+        if (!__tmp_webpack_public_path__ && process.env.NODE_ENV === 'test') {
+            // Since __tmp_webpack_public_path__ is temporary, we're
+            // defaulting it here in tests to lessen tests that need to change
+            // when this property is removed
+            this.__tmp_webpack_public_path__ = 'https://temporary.com/pub';
+        }
         this.store = createStore();
         this.container = null;
         this.element = null;
@@ -39,18 +45,7 @@ class Peregrine {
 
         return (
             <Provider store={store}>
-                <MagentoRouter
-                    apiBase={apiBase}
-                    __tmp_webpack_public_path__={__tmp_webpack_public_path__}
-                    render404={() => <div>404</div>}
-                    renderRouteError={() => <div>Route Error</div>}
-                    routes={[
-                        {
-                            urlPattern: '/',
-                            getComponent: () => () => <div>Homepage</div>
-                        }
-                    ]}
-                />
+                <MagentoRouter {...{ apiBase, __tmp_webpack_public_path__ }} />
             </Provider>
         );
     }

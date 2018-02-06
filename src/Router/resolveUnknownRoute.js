@@ -2,7 +2,7 @@
  * @description Given a route string, resolves with the "standard route", along
  * with the assigned Root Component (and its owning chunk) from the backend
  * @param {{ route: string, apiBase: string, __tmp_webpack_public_path__: string}} opts
- * @returns {Promise<{rootChunkID: number, rootModuleID: number }>}
+ * @returns {Promise<{matched: boolean, rootChunkID: number | undefined, rootModuleID: number | undefined }>}
  */
 export default function resolveUnknownRoute(opts) {
     const { route, apiBase, __tmp_webpack_public_path__ } = opts;
@@ -13,13 +13,18 @@ export default function resolveUnknownRoute(opts) {
         // https://jira.corp.magento.com/browse/MAGETWO-87425
         route: route[0] === '/' ? route.slice(1) : route,
         apiBase
-    }).then(({ type }) => {
-        return tempGetWebpackChunkData(type, __tmp_webpack_public_path__).then(
-            ({ rootChunkID, rootModuleID }) => ({
-                rootChunkID,
-                rootModuleID
-            })
-        );
+    }).then(res => {
+        if (!(res && res.type)) {
+            return { matched: false };
+        }
+        return tempGetWebpackChunkData(
+            res.type,
+            __tmp_webpack_public_path__
+        ).then(({ rootChunkID, rootModuleID }) => ({
+            rootChunkID,
+            rootModuleID,
+            matched: true
+        }));
     });
 }
 

@@ -1,7 +1,4 @@
-// https://webpack.js.org/api/module-variables/#__webpack_chunk_load__-webpack-specific-
-const loadChunk = __webpack_chunk_load__;
-// https://webpack.js.org/api/module-variables/#__webpack_require__-webpack-specific-
-const webpackRequire = __webpack_require__;
+import webpackInterop from './webpackInterop';
 
 /**
  * @description Uses the webpack runtime to async load a chunk, and then returns
@@ -10,7 +7,24 @@ const webpackRequire = __webpack_require__;
  * @param {number} moduleID
  */
 export default function fetchRootComponent(chunkID, moduleID) {
-    return loadChunk(chunkID).then(() => {
-        return webpackRequire(moduleID).default;
+    return webpackInterop.loadChunk(chunkID).then(() => {
+        const modNamespace = webpackInterop.require(moduleID);
+        if (!modNamespace) {
+            throw new Error(
+                `Expected chunkID ${chunkID} to have module ${
+                    moduleID
+                }. Cannot render this route without a matching RootComponent`
+            );
+        }
+
+        if (typeof modNamespace.default !== 'function') {
+            throw new Error(
+                `moduleID ${moduleID} in chunk ${
+                    chunkID
+                } was missing a default export for a RootComponent`
+            );
+        }
+
+        return modNamespace.default;
     });
 }
