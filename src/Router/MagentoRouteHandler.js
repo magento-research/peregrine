@@ -21,7 +21,7 @@ export default class MagentoRouteHandler extends Component {
     componentWillReceiveProps(nextProps) {
         const { location } = this.props;
         const changed = nextProps.location.pathname !== location.pathname;
-        const seen = !!this.state[nextProps.location];
+        const seen = !!this.state[nextProps.location.pathname];
 
         if (changed && !seen) {
             this.getRouteComponent(nextProps.location.pathname);
