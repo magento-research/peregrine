@@ -6,7 +6,7 @@ import MagentoRouteHandler from './MagentoRouteHandler';
 export default class MagentoRouter extends Component {
     static propTypes = {
         /* Can be BrowserRouter, MemoryRouter, HashRouter, etc */
-        Router: func,
+        using: func,
         routerProps: object,
         apiBase: string.isRequired,
         __tmp_webpack_public_path__: string.isRequired
@@ -19,7 +19,7 @@ export default class MagentoRouter extends Component {
 
     render() {
         const {
-            Router,
+            using: Router,
             routerProps,
             apiBase,
             __tmp_webpack_public_path__

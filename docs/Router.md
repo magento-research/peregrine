@@ -22,5 +22,5 @@ ReactDOM.render(
 | Prop Name     | Required? |                                                                                            Description |
 | ------------- | :-------: | -----------------------------------------------------------------------------------------------------: |
 | `apiBase`     |    ✅     |                                         Root URL of the Magento store, including protocol and hostname |
-| `Router`      |           | The Router implementation to use from React-Router. Can be `BrowserRouter`/`HashRouter`/`MemoryRouter` |
+| `using`       |           | The Router implementation to use from React-Router. Can be `BrowserRouter`/`HashRouter`/`MemoryRouter` |
 | `routerProps` |           |                                                      Any additional props to be passed to React-Router |

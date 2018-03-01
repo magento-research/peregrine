@@ -26,7 +26,7 @@ const mockFetchRootComponentOnce = Component =>
 test('Only rendered route is a catch-all', () => {
     const routesWrapper = shallow(
         <MagentoRouter
-            Router={MemoryRouter}
+            using={MemoryRouter}
             apiBase="https://store.com"
             __tmp_webpack_public_path__="https://store.com/pub"
         />
@@ -41,7 +41,7 @@ test('Renders component for matching route', cb => {
     mockFetchRootComponentOnce(RouteComponent);
     const wrapper = mount(
         <MagentoRouter
-            Router={MemoryRouter}
+            using={MemoryRouter}
             routerProps={{
                 initialEntries: ['/some-product.html']
             }}
@@ -63,7 +63,7 @@ test('Renders loading content before first route is resolved', () => {
     mockFetchRootComponentOnce(RouteComponent);
     const wrapper = mount(
         <MagentoRouter
-            Router={MemoryRouter}
+            using={MemoryRouter}
             routerProps={{
                 initialEntries: ['/some-product.html']
             }}
@@ -80,7 +80,7 @@ test('On route change, fetches and renders new route', cb => {
     mockFetchRootComponentOnce(RouteComponent);
     const wrapper = mount(
         <MagentoRouter
-            Router={MemoryRouter}
+            using={MemoryRouter}
             routerProps={{
                 initialEntries: ['/some-product.html']
             }}
