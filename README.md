@@ -12,6 +12,6 @@ Each component's documentation can be found in the [`docs`](docs) directory.
 
 ## Components
 ### [Simulators](docs/Simulators.md)
-Testing and development components for simulating network conditions and other testable situations.
- - [`<DelayedProps initial={empty}, delay={2000}, updated={full}>`](docs/Simulators.md#delayed_props) &ndash; Passes updated props to its children on a timer. Test progressive load states!
- - [`<ScheduledPropUpdates schedule>`](docs/Simulators.md#scheduled_prop_updates) &ndash; Configurable with a schedule array to update child props multiple times on successive timers. For more complex scenarios than `DelayedProps`.
+Testing and development components for simulating progressive load or slow network conditions.
+ - [`<DelayedValue initial={empty}, delay={2000}, updated={full}>`](docs/Simulators.md#delayed_value) &ndash;
+ - [`<MultipleTimedRenders schedule>`](docs/Simulators.md#multiple_timed_renders) &ndash; Configurable with a schedule array to update child props multiple times on successive timers. For more complex scenarios than `DelayedValue`.
