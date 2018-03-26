@@ -23,11 +23,11 @@ import { inspect } from 'util';
 
 /**
  * Turn any value until a function returning that value.
- * Args props can take arrays, or array-returning lambdas for lazy delivery.
- * Unify that interface to lambdas early.
+ * Args props can take arrays, or array-returning functions.
+ * Implementations assume array-returning functions; this ensures it;
  * @private
  */
-function lift(value) {
+function ensureFunction(value) {
     return typeof value === 'function' ? value : () => value;
 }
 
@@ -146,14 +146,14 @@ export default function scheduleCallbackArgs(
             }
         } else {
             errorHandler(
-                Error(`Args callback did not return an array:` + inspect(args))
+                Error(`Args callback did not return an array: #{inspect(args)}`)
             );
             return;
         }
     };
 
     calls.forEach(({ elapsed, args }) => {
-        schedule.add(setTimeout(invoker(lift(args)), elapsed));
+        schedule.add(setTimeout(invoker(ensureFunction(args)), elapsed));
     });
 
     return schedule;
