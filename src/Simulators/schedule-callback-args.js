@@ -70,7 +70,7 @@ class TimerSchedule {
         this._timers.forEach(clearTimeout);
         this._timers = null;
         this.cancel = () => {
-            throw Error(
+            throw new Error(
                 `Tried to call cancel on an already canceled scheduler`
             );
         };

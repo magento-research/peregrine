@@ -73,7 +73,7 @@ test('errors throw informatively', () => {
     mount(
         <DelayedValue delay={500} updated={{ food: 'vegetables' }}>
             {val => {
-                throw Error(`But I don't LIKE ${val.food}!`);
+                throw new Error(`But I don't LIKE ${val.food}!`);
             }}
         </DelayedValue>
     );
@@ -99,7 +99,7 @@ test('errors throw unless a custom error callback exists', () => {
             updated={{ food: 'minerals' }}
         >
             {val => {
-                throw Error(`But I don't LIKE ${val.food}!`);
+                throw new Error(`But I don't LIKE ${val.food}!`);
             }}
         </DelayedValue>
     );

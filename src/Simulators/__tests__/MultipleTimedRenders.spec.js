@@ -139,13 +139,13 @@ test('errors throw informatively', () => {
                 {
                     elapsed: 900,
                     args: () => {
-                        throw Error('woah');
+                        throw new Error('woah');
                     }
                 }
             ]}
         >
             {val => {
-                throw Error(`But I don't LIKE ${val.food}!`);
+                throw new Error(`But I don't LIKE ${val.food}!`);
             }}
         </MultipleTimedRenders>
     );
@@ -170,7 +170,7 @@ test('errors throw unless a custom error callback exists', () => {
             onError={onError}
         >
             {val => {
-                throw Error(`But I don't LIKE ${val.food}!`);
+                throw new Error(`But I don't LIKE ${val.food}!`);
             }}
         </MultipleTimedRenders>
     );

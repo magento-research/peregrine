@@ -153,7 +153,7 @@ test('cancel throws if called twice', () => {
 test('throws an error in the callback by default', () => {
     const callback = jest.fn().mockName('callback');
     callback.mockImplementationOnce(() => {
-        throw Error('oh nooooo');
+        throw new Error('oh nooooo');
     });
 
     expect(() =>
@@ -176,7 +176,7 @@ test('throws an error in the args getter by default', () => {
                 {
                     elapsed: 5000,
                     args: () => {
-                        throw Error('whaaaat');
+                        throw new Error('whaaaat');
                     }
                 }
             ],
@@ -208,7 +208,7 @@ test('passes an error in the callback to a custom handler', () => {
     const callback = jest.fn().mockName('callback');
     const errorHandler = jest.fn().mockName('errorHandler');
     callback.mockImplementationOnce(() => {
-        throw Error('oh nooooo');
+        throw new Error('oh nooooo');
     });
 
     expect(() =>
@@ -241,7 +241,7 @@ test('passes an error in the args getter to a custom handler', () => {
                 {
                     elapsed: 5000,
                     args: () => {
-                        throw Error('whaaaat');
+                        throw new Error('whaaaat');
                     }
                 }
             ],
