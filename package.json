@@ -21,8 +21,6 @@
     "test": "jest --no-cache --coverage src",
     "test:ci": "run-p test prettier:check lint",
     "test:watch": "jest --watch src",
-    "test:watch:focus": "jest --watch --coverage --coverageReporters=text --collectCoverageFrom=\"${FOCUS}/**/*.js\" --no-cache \"${FOCUS}.*\"",
-    "test:debug:focus": "node --inspect-brk ./node_modules/.bin/jest --runInBand --no-coverage --no-cache \"${FOCUS}.*\"",
     "test:dev": "run-s clean prettier lint build test",
     "test:debug": "node --inspect-brk node_modules/.bin/jest -i"
   },
