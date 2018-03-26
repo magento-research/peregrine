@@ -25,16 +25,20 @@ export default class MultipleTimedRenders extends Component {
     };
 
     state = {
-        args: typeof this.props.initialArgs === 'function' ? this.props.initialArgs() : this.props.initialArgs
+        args:
+            typeof this.props.initialArgs === 'function'
+                ? this.props.initialArgs()
+                : this.props.initialArgs
     };
 
     componentDidMount() {
         this._pending = scheduleCallbackArgs(
             this.props.scheduledArgs,
             (...args) => this.setState({ args }),
-            e => this.props.onError(new Error(
-                `Could not retrieve arguments: ${e.message}`
-            ))
+            e =>
+                this.props.onError(
+                    new Error(`Could not retrieve arguments: ${e.message}`)
+                )
         );
     }
 

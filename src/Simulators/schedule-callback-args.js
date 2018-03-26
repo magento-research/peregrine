@@ -146,7 +146,7 @@ export default function scheduleCallbackArgs(
             }
         } else {
             errorHandler(
-                Error(`Args callback did not return an array: #{inspect(args)}`)
+                Error(`Args callback did not return an array: ${inspect(args)}`)
             );
             return;
         }
