@@ -8,7 +8,7 @@ test:
 
 deployment:
   prs:
-    branch: setup-storybook
+    branch: /\b(?!master)\b\S+/
     commands:
       - npm run storybook:build
 
