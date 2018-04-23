@@ -12,6 +12,7 @@ class Item extends Component {
         isSelected: PropTypes.bool,
         item: PropTypes.any.isRequired,
         render: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
+            .isRequired
     };
 
     static defaultProps = {
