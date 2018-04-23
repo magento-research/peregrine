@@ -10,7 +10,8 @@ class List extends Component {
             root: PropTypes.string
         }),
         items: PropTypes.instanceOf(Map).isRequired,
-        render: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+        render: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
+            .isRequired,
         renderItem: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
         onSelectionChange: PropTypes.func,
         selectionModel: PropTypes.oneOf(['check', 'radio'])
