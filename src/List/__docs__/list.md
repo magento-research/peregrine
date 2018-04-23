@@ -8,9 +8,9 @@ The `List` component maps a collection of data objects into an array of elements
 import { List } from '@magento/peregrine';
 
 const basicItems = new Map()
-    .add('s', 'Small')
-    .add('m', 'Medium')
-    .add('l', 'Large')
+    .set('s', 'Small')
+    .set('m', 'Medium')
+    .set('l', 'Large')
 
 <List
     classes={{ root: 'foo' }}
@@ -20,9 +20,9 @@ const basicItems = new Map()
 />
 
 const complexItems = new Map()
-    .add('s', { id: 's', value: 'Small' })
-    .add('m', { id: 'm', value: 'Medium' })
-    .add('l', { id: 'l', value: 'Large' })
+    .set('s', { id: 's', value: 'Small' })
+    .set('m', { id: 'm', value: 'Medium' })
+    .set('l', { id: 'l', value: 'Large' })
 
 // let `Select` and `Option` be React components
 <List
