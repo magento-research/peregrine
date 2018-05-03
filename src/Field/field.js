@@ -28,7 +28,7 @@ class Field extends Component {
         const controlProps = { type, value };
 
         return (
-            <label className={classes.controls}>
+            <label className={classes.control}>
                 <span className={classes.label}>{label}</span>
                 <Control {...controlProps} onChange={this.handleChange} />
             </label>
@@ -40,9 +40,14 @@ class Field extends Component {
         const controlProps = { type, value };
 
         return (
-            <div className={classes.controls}>
+            <div className={classes.control}>
                 <span className={classes.label}>{label}</span>
-                <ControlGroup {...controlProps} onChange={this.handleChange} />
+                <div className={classes.group}>
+                    <ControlGroup
+                        {...controlProps}
+                        onChange={this.handleChange}
+                    />
+                </div>
             </div>
         );
     }

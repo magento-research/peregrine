@@ -3,40 +3,38 @@ import PropTypes from 'prop-types';
 
 class Switch extends Component {
     static propTypes = {
+        checked: PropTypes.bool,
         classes: PropTypes.shape({
             root: PropTypes.string
         }),
-        type: PropTypes.string.isRequired
+        id: PropTypes.string,
+        name: PropTypes.string,
+        type: PropTypes.string.isRequired,
+        value: PropTypes.string.isRequired
     };
 
     static defaultProps = {
         classes: {}
     };
 
-    get input() {
-        const { classes, ...restProps } = this.props;
-        const inputProps = {
-            ...restProps,
-            className: classes.input,
-            onChange: this.handleChange
-        };
-
-        return <input {...inputProps} />;
-    }
-
     render() {
-        const { input, props } = this;
-        const { classes } = props;
+        const { classes, ...restProps } = this.props;
 
-        return <span className={classes.root}>{input}</span>;
+        return (
+            <input
+                {...restProps}
+                className={classes.root}
+                onChange={this.handleChange}
+            />
+        );
     }
 
     handleChange = event => {
         const { onChange } = this.props;
-        const { checked, value } = event.target;
+        const { checked, name, value } = event.target;
 
         if (onChange) {
-            onChange(value, checked);
+            onChange(name, value, checked);
         }
     };
 }

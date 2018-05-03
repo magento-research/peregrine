@@ -9,6 +9,7 @@ class Control extends Component {
         classes: PropTypes.shape({
             root: PropTypes.string
         }),
+        name: PropTypes.string,
         type: PropTypes.string.isRequired
     };
 
@@ -18,10 +19,11 @@ class Control extends Component {
 
     get input() {
         const { classes, type, ...restProps } = this.props;
-        const elementType = isInput ? 'input' : type;
+        const elementType = isInput(type) ? 'input' : type;
         const inputProps = {
             ...restProps,
             className: classes.input,
+            type: isInput(type) ? type : null,
             onChange: this.handleChange
         };
 

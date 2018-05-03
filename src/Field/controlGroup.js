@@ -1,4 +1,4 @@
-import { Component, createElement } from 'react';
+import { Component, Fragment, createElement } from 'react';
 import PropTypes from 'prop-types';
 
 import Switch from './switch';
@@ -15,6 +15,7 @@ class ControlGroup extends Component {
         onChange: PropTypes.func,
         options: PropTypes.arrayOf(
             PropTypes.shape({
+                label: PropTypes.string.isRequired,
                 value: PropTypes.string.isRequired
             })
         ).isRequired,
@@ -32,13 +33,12 @@ class ControlGroup extends Component {
         checkedValues: new Set()
     };
 
-    get controls() {
+    render() {
         const { checkedValues } = this.state;
         const { classes, name, options, type } = this.props;
         const sharedProps = { name, type, onChange: this.handleChange };
 
-        return options.map(optionProps => {
-            const { value } = optionProps;
+        const children = options.map(({ label, value, ...inputProps }) => {
             const isChecked = checkedValues.has(value);
 
             return (
@@ -46,31 +46,27 @@ class ControlGroup extends Component {
                     <span className={classes.label}>{label}</span>
                     <Switch
                         {...sharedProps}
-                        {...optionProps}
+                        {...inputProps}
+                        value={value}
                         checked={isChecked}
                     />
                 </label>
             );
         });
+
+        return <Fragment>{children}</Fragment>;
     }
 
-    render() {
-        const { controls, props } = this;
-        const { classes } = props;
-
-        return <div className={classes.root}>{controls}</div>;
-    }
-
-    handleChange = (key, isChecked) => {
-        const { name, onChange, type } = this.props;
+    handleChange = (name, value, isChecked) => {
+        const { onChange, type } = this.props;
         const isRadio = type === 'radio';
         const otherValues = isRadio ? null : this.state.checkedValues;
         const checkedValues = new Set(otherValues);
 
         if (isChecked) {
-            checkedValues.add(key);
+            checkedValues.add(value);
         } else {
-            checkedValues.delete(key);
+            checkedValues.delete(value);
         }
 
         if (onChange) {
