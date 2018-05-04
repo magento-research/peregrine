@@ -2,6 +2,7 @@ import { Component, createElement } from 'react';
 import PropTypes from 'prop-types';
 
 import Control from './control';
+import ControlGroup from './controlGroup';
 
 const groupTypes = ['checkbox', 'radio'];
 const isGroupType = type => groupTypes.includes(type);
@@ -9,11 +10,14 @@ const isGroupType = type => groupTypes.includes(type);
 class Field extends Component {
     static propTypes = {
         classes: PropTypes.shape({
+            control: PropTypes.string,
+            controls: PropTypes.string,
+            group: PropTypes.string,
             label: PropTypes.string,
             message: PropTypes.string,
             root: PropTypes.string
         }),
-        label: PropTypes.node.isRequired,
+        label: PropTypes.node,
         message: PropTypes.node,
         type: PropTypes.string,
         value: PropTypes.any
@@ -22,6 +26,16 @@ class Field extends Component {
     static defaultProps = {
         classes: {}
     };
+
+    get children() {
+        const { children, type } = this.props;
+
+        if (children) {
+            return children;
+        }
+
+        return isGroupType(type) ? this.controlGroup : this.control;
+    }
 
     get control() {
         const { classes, label, type, value } = this.props;
@@ -36,11 +50,11 @@ class Field extends Component {
     }
 
     get controlGroup() {
-        const { classes, label, type, value } = this.props;
-        const controlProps = { type, value };
+        const { classes, label, options, type, value } = this.props;
+        const controlProps = { options, type, value };
 
         return (
-            <div className={classes.control}>
+            <div className={classes.controls}>
                 <span className={classes.label}>{label}</span>
                 <div className={classes.group}>
                     <ControlGroup
@@ -53,12 +67,12 @@ class Field extends Component {
     }
 
     render() {
-        const { children, classes, message, type } = this.props;
-        const control = isGroupType(type) ? this.controlGroup : this.control;
+        const { children, props } = this;
+        const { classes, message } = props;
 
         return (
             <div className={classes.root}>
-                {children || control}
+                {children}
                 <p className={classes.message}>{message}</p>
             </div>
         );

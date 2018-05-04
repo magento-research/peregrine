@@ -24,7 +24,8 @@ class ControlGroup extends Component {
     };
 
     static defaultProps = {
-        classes: {}
+        classes: {},
+        value: []
     };
 
     static getDerivedStateFromProps = deriveCheckedValues;
