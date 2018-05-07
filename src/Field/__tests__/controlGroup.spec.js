@@ -1,4 +1,4 @@
-import { Fragment, createElement } from 'react';
+import { createElement } from 'react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
@@ -26,11 +26,11 @@ test('derives state from props', () => {
     expect(colorProps.value.every(v => checkedValues.has(v))).toBeTruthy;
 });
 
-test('renders a fragment', () => {
+test('renders a div', () => {
     const props = { ...colorProps };
     const wrapper = shallow(<ControlGroup {...props} />);
 
-    expect(wrapper.type()).toEqual(Fragment);
+    expect(wrapper.type()).toEqual('div');
 });
 
 test('renders a child for each option', () => {

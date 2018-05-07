@@ -1,4 +1,4 @@
-import { Component, Fragment, createElement } from 'react';
+import { Component, createElement } from 'react';
 import PropTypes from 'prop-types';
 
 import Switch from './switch';
@@ -34,28 +34,34 @@ class ControlGroup extends Component {
         checkedValues: new Set()
     };
 
-    render() {
+    get children() {
         const { checkedValues } = this.state;
         const { classes, name, options, type } = this.props;
         const sharedProps = { name, type, onChange: this.handleChange };
 
-        const children = options.map(({ label, value, ...inputProps }) => {
+        return options.map(({ id, label, value, ...inputProps }) => {
             const isChecked = checkedValues.has(value);
 
             return (
-                <label key={value} className={classes.option}>
+                <label key={value} htmlFor={id} className={classes.option}>
                     <span className={classes.label}>{label}</span>
                     <Switch
                         {...sharedProps}
                         {...inputProps}
+                        id={id}
                         value={value}
                         checked={isChecked}
                     />
                 </label>
             );
         });
+    }
 
-        return <Fragment>{children}</Fragment>;
+    render() {
+        const { children, props } = this;
+        const { classes } = props;
+
+        return <div className={classes.root}>{children}</div>;
     }
 
     handleChange = (name, value, isChecked) => {
