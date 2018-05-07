@@ -4,19 +4,15 @@ machine:
 
 test:
   override:
-    - npm run test:ci
+    - npm run danger
+
+deployment:
+  prs:
+    branch: /\b(?!master)\b\S+/
+    commands:
+      - npm run storybook:build
 
 general:
   artifacts:
     - "coverage/lcov-report"
-
-dependencies:
-  pre:
-    - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
-
-deployment:
-  npm:
-    tag: /v[0-9]+(\.[0-9]+)*(-(alpha|beta))?/
-    commands:
-      - NODE_ENV=production npm run build
-      - npm publish --access=public
+    - "storybook-dist"

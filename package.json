@@ -14,18 +14,17 @@
   },
   "scripts": {
     "build": "babel src -d dist --ignore test.js",
+    "danger": "danger-ci",
     "clean": "rimraf dist",
     "lint": "eslint 'src/**/*.js'",
     "prettier": "prettier --write '{src/**/,scripts/**/,}*.js'",
-    "prettier:check": "prettier-check '{src/**/,scripts/**/,}*.js'",
-    "test": "jest --no-cache --coverage src",
-    "test:ci": "run-p test prettier:check lint",
-    "test:watch": "jest --watch src",
-    "test:dev": "run-s clean prettier lint build test",
-    "test:debug": "node --inspect-brk node_modules/.bin/jest -i"
+    "prettier:check": "prettier --list-different '{src/**/,scripts/**/,}*.js'",
+    "test": "jest --no-cache --coverage",
+    "test:debug": "node --inspect-brk node_modules/.bin/jest -i",
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "storybook:build": "build-storybook -c .storybook -o storybook-dist"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "peerDependencies": {
     "babel-runtime": "^6.0.0",
     "react": "^16.2.0",
@@ -36,6 +35,8 @@
   },
   "devDependencies": {
     "@magento/eslint-config": "^1.0.0",
+    "@storybook/addon-actions": "^3.4.2",
+    "@storybook/react": "^3.4.2",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.3",
@@ -45,22 +46,23 @@
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
+    "danger": "^3.4.5",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.0",
     "eslint": "^4.12.1",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.5.1",
+    "execa": "^0.10.0",
     "jest": "^22.4.2",
     "jest-fetch-mock": "^1.4.1",
-    "npm-run-all": "^4.1.2",
     "prettier": "^1.8.2",
-    "prettier-check": "^2.0.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "storybook-readme": "^3.3.0"
   }
 }

@@ -4,5 +4,9 @@ module.exports = {
         '<rootDir>/scripts/fetch-mock.js'
     ],
     verbose: true,
-    collectCoverageFrom: ['src/**/*.js', '!src/**/index.js']
+    collectCoverageFrom: [
+        'src/**/*.js',
+        '!src/**/index.js',
+        '!src/**/__stories__/**'
+    ]
 };
