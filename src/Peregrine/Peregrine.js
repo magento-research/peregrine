@@ -75,6 +75,49 @@ class Peregrine {
     addReducer(key, reducer) {
         this.store.addReducer(key, reducer);
     }
+
+    /**
+     * Register a service worker by URL, if supported.
+     * Checks for ServiceWorker support and status, then registers and/or
+     * updates a ServiceWorker as necessary.
+     *
+     * Returns a Promise which resolves when ServiceWorker becomes active,
+     * and rejects if there is an error or SWs are not supported.
+     *
+     * @param {String} swPath The URL path to the service worker file.
+     * @param {Object} options Optional object configuration to be passed as
+     *                 second argument to `navigator.serviceWorker.register()`.
+     * @returns {Promise} Resolves if SW is active, rejects if not.
+     */
+    registerServiceWorker(swPath = '/sw.js', options) {
+        return new Promise((resolve, reject) => {
+            const doRegister = () => {
+                window.navigator.serviceWorker
+                    .register(swPath, options)
+                    .then(registration => {
+                        console.log(
+                            'Service worker registered: ',
+                            registration
+                        );
+                        resolve(registration);
+                    })
+                    .catch(reject);
+            };
+            if (window.navigator.serviceWorker) {
+                if (window.document.readyState === 'complete') {
+                    doRegister();
+                } else {
+                    window.addEventListener('load', doRegister);
+                }
+            } else {
+                reject(
+                    new Error(
+                        'Service workers unsupported in current environment.'
+                    )
+                );
+            }
+        });
+    }
 }
 
 export default Peregrine;
