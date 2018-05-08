@@ -9,12 +9,15 @@ class List extends Component {
         classes: PropTypes.shape({
             root: PropTypes.string
         }),
-        items: PropTypes.instanceOf(Map).isRequired,
+        items: PropTypes.oneOfType([
+            PropTypes.instanceOf(Map),
+            PropTypes.arrayOf(PropTypes.array)
+        ]).isRequired,
         render: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
             .isRequired,
         renderItem: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
         onSelectionChange: PropTypes.func,
-        selectionModel: PropTypes.oneOf(['check', 'radio'])
+        selectionModel: PropTypes.oneOf(['checkbox', 'radio'])
     };
 
     static defaultProps = {

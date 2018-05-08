@@ -10,8 +10,8 @@ See `List`.
 
 Prop Name | Required? | Description
 --------- | :-------: | :----------
-`classes` | ❌ | A classname hash
+`classes` | ❌ | A classname object.
 `hasFocus` | ❌ | Whether the element currently has browser focus
 `isSelected` | ❌ | Whether the item is currently selected 
-`item` | ✅ | A data object. By default, `item` is rendered as a raw string
-`render` | ✅ | A [render prop](https://reactjs.org/docs/render-props.html). Also accepts a tagname string
+`item` | ✅ | A data object. If `item` is a string, it will be rendered as a child
+`render` | ✅ | A [render prop](https://reactjs.org/docs/render-props.html). Also accepts a tagname (e.g., `"div"`)

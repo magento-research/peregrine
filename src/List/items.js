@@ -21,7 +21,7 @@ const updateSelection = memoize(key => (prevState, props) => {
         selection = new Set().add(key);
     }
 
-    if (selectionModel === 'check') {
+    if (selectionModel === 'checkbox') {
         selection = new Set(prevState.selection);
 
         if (selection.has(key)) {
@@ -41,7 +41,7 @@ class Items extends Component {
             PropTypes.arrayOf(PropTypes.array)
         ]).isRequired,
         renderItem: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-        selectionModel: PropTypes.oneOf(['check', 'radio'])
+        selectionModel: PropTypes.oneOf(['checkbox', 'radio'])
     };
 
     static defaultProps = {
@@ -88,7 +88,7 @@ class Items extends Component {
     };
 
     getClickHandler = memoize(key => () => {
-        this.setState(updateSelection(key));
+        this.setState(updateSelection(key), this.syncSelection);
     });
 
     getFocusHandler = memoize(index => () => {

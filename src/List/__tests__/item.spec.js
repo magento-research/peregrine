@@ -11,19 +11,17 @@ const classes = {
 };
 
 test('renders a div by default', () => {
-    const props = { classes, item: 'a' };
+    const props = { item: 'a' };
     const wrapper = shallow(<Item {...props} />).dive();
 
     expect(wrapper.type()).toEqual('div');
-    expect(wrapper.prop('className')).toEqual(classes.root);
 });
 
 test('renders a provided tagname', () => {
-    const props = { classes, item: 'a', render: 'p' };
+    const props = { item: 'a', render: 'p' };
     const wrapper = shallow(<Item {...props} />).dive();
 
     expect(wrapper.type()).toEqual('p');
-    expect(wrapper.prop('className')).toEqual(classes.root);
 });
 
 test('renders a provided component', () => {
@@ -60,16 +58,16 @@ test('passes custom and rest props to composite `render`', () => {
     expect(wrapper.props()).not.toHaveProperty('render');
 });
 
-test('passes `item` string as `children`', () => {
-    const props = { item: 1, render: 'p' };
+test('passes `item` as `children` if `item` is a string', () => {
+    const props = { item: 'a', render: 'p' };
     const wrapper = shallow(<Item {...props} />).dive();
 
-    expect(wrapper.text()).toEqual('1');
+    expect(wrapper.text()).toEqual('a');
 });
 
-test('renders `item` string regardless of type', () => {
+test('does not pass `children` if `item` is not a string', () => {
     const props = { item: { id: 1 }, render: 'p' };
     const wrapper = shallow(<Item {...props} />).dive();
 
-    expect(wrapper.text()).toEqual('[object Object]');
+    expect(wrapper.text()).toBe('');
 });

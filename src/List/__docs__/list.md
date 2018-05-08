@@ -38,9 +38,9 @@ const complexItems = new Map()
 
 Prop Name | Required? | Description
 --------- | :-------: | :----------
-classes | ❌ | A classname hash
-items | ✅ | A keyed collection of data objects, preferably an ES2015 `Map`
-render | ✅ | A [render prop](https://reactjs.org/docs/render-props.html). Also accepts a tagname string
-renderItem | ❌ | A [render prop](https://reactjs.org/docs/render-props.html). Also accepts a tagname string
-onSelectionChange | ❌ | A callback fired the selection state changes
-selectionModel | ❌ | An enum string corresponding to a selection model. Currently accepts `radio` (default) and `check`
+`classes` | ❌ | A classname hash
+`items` | ✅ | An iterable that yields `[key, item]` pairs, such as an ES2015 `Map`
+`render` | ✅ | A [render prop](https://reactjs.org/docs/render-props.html). Also accepts a tagname (e.g., `"div"`)
+`renderItem` | ❌ | A [render prop](https://reactjs.org/docs/render-props.html). Also accepts a tagname (e.g., `"div"`)
+`onSelectionChange` | ❌ | A callback fired when the selection state changes
+`selectionModel` | ❌ | A string specifying whether to use a `radio` or `checkbox` selection model
