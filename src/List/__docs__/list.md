@@ -28,7 +28,7 @@ const complexData = new Map()
     classes={{ root: 'bar' }}
     items={complexData}
     render={props => (<ul>{props.children}</ul>)}
-    renderItem={props => (<li>{props.value}</li>)}
+    renderItem={props => (<li>{props.item.value}</li>)}
 />
 ```
 
