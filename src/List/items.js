@@ -1,7 +1,7 @@
 import { Component, Fragment, createElement } from 'react';
 import PropTypes from 'prop-types';
-import memoize from 'lodash.memoize';
 
+import memoize from '../util/unaryMemoize';
 import ListItem from './item';
 
 const removeFocus = () => ({
