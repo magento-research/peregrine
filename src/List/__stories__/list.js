@@ -37,7 +37,8 @@ stories.add(
         <List
             classes={{ root: 'bar' }}
             items={complexData}
-            renderItem={props => <div>{props.value}</div>}
+            render={props => <ul>{props.children}</ul>}
+            renderItem={props => <li>{props.value}</li>}
         />
     ))
 );
