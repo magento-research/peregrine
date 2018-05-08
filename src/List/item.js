@@ -22,6 +22,13 @@ class Item extends Component {
         render: 'div'
     };
 
+    get children() {
+        const { item } = this.props;
+        const isString = typeof item === 'string';
+
+        return isString ? item : null;
+    }
+
     render() {
         const {
             classes,
@@ -36,7 +43,7 @@ class Item extends Component {
 
         return (
             <Root className={classes.root} {...customProps} {...restProps}>
-                {`${item}`}
+                {this.children}
             </Root>
         );
     }

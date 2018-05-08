@@ -33,7 +33,7 @@ const fromRenderProp = (elementType, customProps = []) => {
         const Component = props =>
             createElement(elementType, filterProps(props, uniqueCustomProps));
 
-        Component.displayName = `${elementType}FromRenderProp`;
+        Component.displayName = `fromRenderProp(${elementType})`;
         cache.set(key, Component);
     }
 

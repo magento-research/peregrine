@@ -128,16 +128,6 @@ test('indicates whether a child is selected', () => {
     });
 });
 
-test('`syncSelection` calls `onSelectionChange`', () => {
-    const onSelectionChange = jest.fn();
-    const selection = new Set();
-    const props = { items, onSelectionChange };
-    const wrapper = shallow(<Items {...props} />);
-
-    wrapper.instance().syncSelection(selection);
-    expect(onSelectionChange).toHaveBeenCalledWith(selection);
-});
-
 test('updates `hasFocus` on child blur', () => {
     const props = { items };
     const wrapper = shallow(<Items {...props} />);
@@ -161,14 +151,56 @@ test('updates `cursor` and `hasFocus` on child focus', () => {
     });
 });
 
-test('updates `selection` on child click', () => {
+test('updates radio `selection` on child click', () => {
     const props = { items };
     const wrapper = shallow(<Items {...props} />);
-    const selection = new Set().add('b');
+
+    expect(wrapper.state('selection')).toEqual(new Set());
+
+    wrapper.childAt(0).simulate('click');
+    expect(wrapper.state('selection')).toEqual(new Set(['a']));
 
     wrapper.childAt(1).simulate('click');
+    expect(wrapper.state('selection')).toEqual(new Set(['b']));
 
-    expect(wrapper.state('selection')).toEqual(selection);
+    wrapper.childAt(0).simulate('click');
+    expect(wrapper.state('selection')).toEqual(new Set(['a']));
+});
+
+test('updates checkbox `selection` on child click', () => {
+    const props = { items, selectionModel: 'checkbox' };
+    const wrapper = shallow(<Items {...props} />);
+
+    expect(wrapper.state('selection')).toEqual(new Set());
+
+    wrapper.childAt(0).simulate('click');
+    expect(wrapper.state('selection')).toEqual(new Set(['a']));
+
+    wrapper.childAt(1).simulate('click');
+    expect(wrapper.state('selection')).toEqual(new Set(['a', 'b']));
+
+    wrapper.childAt(0).simulate('click');
+    expect(wrapper.state('selection')).toEqual(new Set(['b']));
+});
+
+test('calls `syncSelection` after updating selection', () => {
+    const props = { items };
+    const wrapper = shallow(<Items {...props} />);
+    const spy = jest.spyOn(wrapper.instance(), 'syncSelection');
+
+    wrapper.childAt(0).simulate('click');
+
+    expect(spy).toHaveBeenCalled();
+});
+
+test('calls `onSelectionChange` after updating selection', () => {
+    const onSelectionChange = jest.fn();
+    const props = { items, onSelectionChange };
+    const wrapper = shallow(<Items {...props} />);
+
+    wrapper.childAt(0).simulate('click');
+
+    expect(onSelectionChange).toHaveBeenCalledWith(wrapper.state('selection'));
 });
 
 test('memoizes child click handlers', () => {

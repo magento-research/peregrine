@@ -5,17 +5,39 @@ import { withReadme } from 'storybook-readme';
 import List from '..';
 import docs from '../__docs__/list.md';
 
-const data = {
-    s: { id: 's', value: 'Small' },
-    m: { id: 'm', value: 'Medium' },
-    l: { id: 'l', value: 'Large' }
-};
-
 const stories = storiesOf('List', module);
 
+// simple example with string values
+const simpleData = new Map()
+    .set('s', 'Small')
+    .set('m', 'Medium')
+    .set('l', 'Large');
+
 stories.add(
-    'default',
+    'simple',
     withReadme(docs, () => (
-        <List classes={{ root: 'foo' }} items={new Map(Object.entries(data))} />
+        <List
+            classes={{ root: 'foo' }}
+            items={simpleData}
+            render={'ul'}
+            renderItem={'li'}
+        />
+    ))
+);
+
+// complex example with object values
+const complexData = new Map()
+    .set('s', { id: 's', value: 'Small' })
+    .set('m', { id: 'm', value: 'Medium' })
+    .set('l', { id: 'l', value: 'Large' });
+
+stories.add(
+    'complex',
+    withReadme(docs, () => (
+        <List
+            classes={{ root: 'bar' }}
+            items={complexData}
+            renderItem={props => <div>{props.value}</div>}
+        />
     ))
 );

@@ -81,19 +81,28 @@ test('renders a fragment as `children`', () => {
 
 test('passes correct props through to `Items`', () => {
     const Item = () => <li />;
-    const selectionModel = 'check';
+    const selectionModel = 'checkbox';
     const props = { items, renderItem: Item, selectionModel };
     const wrapper = shallow(<List {...props} />);
 
     expect(wrapper.childAt(0).props()).toMatchObject(props);
 });
 
-test('`handleSelectionChange` calls `onSelectionChange`', () => {
+test('calls `onSelectionChange` on selection change', () => {
     const onSelectionChange = jest.fn();
     const selection = new Set();
-    const props = { onSelectionChange };
+    const props = { items, onSelectionChange };
     const wrapper = shallow(<List {...props} />);
 
     wrapper.instance().handleSelectionChange(selection);
     expect(onSelectionChange).toHaveBeenCalledWith(selection);
+});
+
+test('does not throw if `onSelectionChange` is not provided', () => {
+    const selection = new Set();
+    const props = { items };
+    const wrapper = shallow(<List {...props} />);
+
+    const cb = () => wrapper.instance().handleSelectionChange(selection);
+    expect(cb).not.toThrow();
 });

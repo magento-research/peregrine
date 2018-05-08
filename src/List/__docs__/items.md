@@ -10,6 +10,6 @@ See `List`.
 
 Prop Name | Required? | Description
 --------- | :-------: | :----------
-items | ✅ | A keyed collection of data objects, preferably an ES2015 `Map`
-renderItem | ❌ | A [render prop](https://reactjs.org/docs/render-props.html). Also accepts a tagname string
-selectionModel | ❌ | An enum string corresponding to a selection model. Currently accepts `radio` (default) and `check`
+`items` | ✅ | An iterable that yields `[key, item]` pairs, such as an ES2015 `Map`
+`renderItem` | ❌ | A [render prop](https://reactjs.org/docs/render-props.html). Also accepts a tagname (e.g., `"div"`)
+`selectionModel` | ❌ | A string specifying whether to use a `radio` or `checkbox` selection model
