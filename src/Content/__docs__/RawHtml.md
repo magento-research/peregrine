@@ -34,7 +34,8 @@ class ItemDescription extends React.Component {
 | ------------------ | :-------: | --------------------------------------------------: |
 | `sanitizedRawHtml` |    ✅      | A string of raw HTML to display. Ignored if `children` are also passed and are not null.
 | `wrapperTag`       |           | Optional HTML tag to use as a custom wrapper element. Default `span.`.
-| `wrapperProps`     |           | Optional object to be passed as props to the `wrapperTag`. Default `{ className: "peregrine-raw-html" }`.
+
+Additional DOM properties set on `RawHTML` will be passed to the wrapper tag.
 
 ## Notes
 
@@ -52,14 +53,14 @@ class ItemDescription extends React.Component {
   </span>
   ```
 
-  Use the `wrapperTag` string prop and `wrapperProps` object prop to customize
-  the  parent tag:
+  Use the `wrapperTag` string prop additional DOM props to customize
+  the parent tag:
 
   ```html
   <RawHtml
       sanitizedRawHtml="<h2>Header</h2><p>body text</p>"
       wrapperTag="section"
-      wrapperProps={{ className: "product-description loading" }}
+      className="product-description loading"
   />
 
   <!-- emits this HTML: -->

@@ -13,6 +13,6 @@ storiesOf('RawHtml', module)
         <RawHtml
             sanitizedRawHtml="<p><em>HTML fallback content</em></p><img src='https://placebeard.it/320/240'/>"
             wrapperTag="article"
-            wrapperProps={{ style: { background: 'whitesmoke' } }}
+            style={{ background: 'whitesmoke' }}
         />
     ));

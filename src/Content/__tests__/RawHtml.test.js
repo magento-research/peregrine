@@ -14,7 +14,7 @@ test('Renders raw HTML in a wrapper element', () => {
     );
 });
 
-test('Takes DOM properties for a custom wrapper element', () => {
+test('Takes a prop for a custom wrapper element', () => {
     const wrapper = mount(
         <RawHtml
             sanitizedRawHtml="<h1 id='o-no'>Raw!!!</h1>"
@@ -23,5 +23,19 @@ test('Takes DOM properties for a custom wrapper element', () => {
     );
     expect(wrapper.html()).toEqual(
         '<article class="peregrine-raw-html"><h1 id="o-no">Raw!!!</h1></article>'
+    );
+});
+
+test('Takes DOM properties for the custom wrapper element', () => {
+    const wrapper = mount(
+        <RawHtml
+            sanitizedRawHtml="<h1 id='o-no'>Raw!!!</h1>"
+            wrapperTag="article"
+            className="custom-class-name"
+            style={{ background: 'blue' }}
+        />
+    );
+    expect(wrapper.html()).toEqual(
+        '<article class="custom-class-name" style="background: blue;"><h1 id="o-no">Raw!!!</h1></article>'
     );
 });

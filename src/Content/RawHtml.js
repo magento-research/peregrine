@@ -1,29 +1,29 @@
 import { createElement, Component } from 'react';
-import { object, string } from 'prop-types';
+import { string } from 'prop-types';
 
 export default class RawHtml extends Component {
     static propTypes = {
         sanitizedRawHtml: string.isRequired,
-        wrapperTag: string,
-        wrapperProps: object
+        wrapperTag: string
     };
 
     static defaultProps = {
         wrapperTag: 'span',
-        wrapperProps: {
-            className: 'peregrine-raw-html'
-        }
+        className: 'peregrine-raw-html'
     };
 
     render() {
-        // JSX tags must be in PascalCase
-        const WrapperTag = this.props.wrapperTag;
+        const {
+            wrapperTag: WrapperTag,
+            sanitizedRawHtml,
+            ...domProps
+        } = this.props;
 
         return (
             <WrapperTag
-                {...this.props.wrapperProps}
+                {...domProps}
                 dangerouslySetInnerHTML={{
-                    __html: this.props.sanitizedRawHtml
+                    __html: sanitizedRawHtml
                 }}
             />
         );
