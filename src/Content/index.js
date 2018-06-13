@@ -1,1 +1,1 @@
-export { default as RichContent } from './RichContent';
+export { default as RawHtml } from './RawHtml';

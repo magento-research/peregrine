@@ -1,7 +1,7 @@
 import { createElement, Component } from 'react';
 import { object, string } from 'prop-types';
 
-export default class RichContent extends Component {
+export default class RawHtml extends Component {
     static propTypes = {
         sanitizedRawHtml: string.isRequired,
         wrapperTag: string,

@@ -1,5 +1,5 @@
 import { createElement } from 'react';
-import { RichContent } from '..';
+import { RawHtml } from '..';
 import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
@@ -7,7 +7,7 @@ configure({ adapter: new Adapter() });
 
 test('Renders raw HTML in a wrapper element', () => {
     const wrapper = mount(
-        <RichContent sanitizedRawHtml="<h1 id='o-no'>Raw!!!</h1>" />
+        <RawHtml sanitizedRawHtml="<h1 id='o-no'>Raw!!!</h1>" />
     );
     expect(wrapper.html()).toEqual(
         '<span class="peregrine-raw-html"><h1 id="o-no">Raw!!!</h1></span>'
@@ -16,7 +16,7 @@ test('Renders raw HTML in a wrapper element', () => {
 
 test('Takes DOM properties for a custom wrapper element', () => {
     const wrapper = mount(
-        <RichContent
+        <RawHtml
             sanitizedRawHtml="<h1 id='o-no'>Raw!!!</h1>"
             wrapperTag="article"
         />
